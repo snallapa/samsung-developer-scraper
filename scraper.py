@@ -36,7 +36,7 @@ def get_totals_for_days(date1, date2, browser):
 	return totals
 
 
-browser = webdriver.Chrome()
+browser = webdriver.PhantomJS()
 browser.set_window_size(1120, 550)
 url = 'http://seller.samsungapps.com/login/signIn.as?returnURL=%2fmain%2fsellerMain.as&ssoCheck=fail'
 browser.get(url)
