@@ -1,0 +1,3 @@
+# Samsung Developer Site Scraper
+
+This is a web scraper that gets day by day information from the samsung developer site. The site itself only allows a developer to view 31 days of data (which is inconvenient when trying to look at all the data or trying to graph all the data). The scraper will retrieve all the data between two dates. This uses PhantomJS and Selenium to manuall cycle through all the dates of the site. No usernames or passwords are saved in the scraper itself and are taken via arguments.
