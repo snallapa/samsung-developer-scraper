@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 import datetime
 import sys
+import getpass
 
 def get_totals_for_days(date1, date2, browser):
 	timedelta = date2 - date1
@@ -35,22 +36,27 @@ def get_totals_for_days(date1, date2, browser):
 	return totals
 
 
-if (len(sys.argv) != 3):
-	print("Need a username and password")
-	exit()
-username = sys.argv[1]
-password = sys.argv[2]
-browser = webdriver.PhantomJS()
+browser = webdriver.Chrome()
 browser.set_window_size(1120, 550)
 url = 'http://seller.samsungapps.com/login/signIn.as?returnURL=%2fmain%2fsellerMain.as&ssoCheck=fail'
 browser.get(url)
+username = input("Username: ")
+password = getpass.getpass("Password: ")
 browser.find_element_by_id("emailID").send_keys(username)
 browser.find_element_by_id("password").send_keys(password)
 browser.find_element_by_class_name("btnNew01").click()
 browser.get("http://seller.samsungapps.com/statistics/statisticsDownloadsSales.as")
 totals = ""
-startDate = datetime.date(2016, 9, 5)
-endDate = datetime.date.today()
+startDateString = input("Start Date (mm/dd/yyyy): ")
+startDate = datetime.datetime.strptime(startDateString, "%m/%d/%Y").date()
+print(str(startDate))
+
+endDateString = input("End Date (mm/dd/yyyy or today): ")
+if endDateString == "today":
+	endDate = datetime.date.today()
+else:
+	endDate = datetime.datetime.strptime(endDateString, "%m/%d/%Y").date()
+print(str(endDate))
 while startDate < endDate:
 	timeDelta = datetime.timedelta(days=30)
 	if ((endDate - startDate).days < 30):
