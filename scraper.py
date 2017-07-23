@@ -36,7 +36,7 @@ def get_totals_for_days(date1, date2, browser):
 	return totals
 
 
-browser = webdriver.PhantomJS()
+browser = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
 browser.set_window_size(1120, 550)
 url = 'http://seller.samsungapps.com/login/signIn.as?returnURL=%2fmain%2fsellerMain.as&ssoCheck=fail'
 browser.get(url)
@@ -49,14 +49,11 @@ browser.get("http://seller.samsungapps.com/statistics/statisticsDownloadsSales.a
 totals = ""
 startDateString = input("Start Date (mm/dd/yyyy): ")
 startDate = datetime.datetime.strptime(startDateString, "%m/%d/%Y").date()
-print(str(startDate))
-
 endDateString = input("End Date (mm/dd/yyyy or today): ")
 if endDateString == "today":
 	endDate = datetime.date.today()
 else:
 	endDate = datetime.datetime.strptime(endDateString, "%m/%d/%Y").date()
-print(str(endDate))
 while startDate < endDate:
 	timeDelta = datetime.timedelta(days=30)
 	if ((endDate - startDate).days < 30):
